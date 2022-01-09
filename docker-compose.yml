@@ -1,40 +1,18 @@
 version: "3.9"
    
 services:
-  db-product:
+  db-order:
     image: postgres
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
-  db-order:
-    image: postgres
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
-    ports:
-      - "5433:5432"
-    environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=root
-  product-api:
-    container_name: product-api
-    build: ./Product-api/
-    command: python ./Order-Api/manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db-product
   order-api:
     container_name: order-api
     build: ./Order-Api/
-    command: python ./Product-api/manage.py runserver 0.0.0.0:8000
+    command: python ./Order-Api/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:

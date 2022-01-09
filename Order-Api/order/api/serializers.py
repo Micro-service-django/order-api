@@ -13,7 +13,7 @@ class ProductSerializer(serializers.ModelSerializer):
     )
 
 class OrderSerializer(serializers.ModelSerializer):
-  product = ProductSerializer(read_only=True)
+  product = ProductSerializer(many=False)
   
   class Meta:
     model = Order
@@ -26,3 +26,8 @@ class OrderSerializer(serializers.ModelSerializer):
       'created_at', 
       'updated_at'
     )
+  
+  def create(self, validated_data):
+    product = validated_data.pop('product')
+    product = Product.objects.create(**product)
+    return Order.objects.create(product_id=product.id, **validated_data)

@@ -17,7 +17,5 @@ clean:
 	docker-compose -f ${dkc} rm $(docker ps -a -q)
 	@echo "Containers Docker foram parados e deletados."
 migrate:
-	docker exec product-api  python ./Product-api/manage.py  makemigrations
-	docker exec product-api  python ./Product-api/manage.py  migrate
-	docker exec order-api  python ./Order-Api/manage.py  makemigrations
-	docker exec order-api  python ./Order-Api/manage.py  migrate
+	docker exec order-api python ./Order-Api/manage.py  makemigrations
+	docker exec order-api python ./Order-Api/manage.py  migrate
