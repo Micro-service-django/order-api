@@ -14,6 +14,7 @@ clean:
 	docker-compose -f ${dkc} stop
 	docker-compose -f ${dkc} down --rmi local --volumes
 	docker-compose -f ${dkc} rm -f
+	docker-compose -f ${dkc} rm $(docker ps -a -q)
 	@echo "Containers Docker foram parados e deletados."
 migrate:
 	docker exec product-api  python ./Product-api/manage.py  makemigrations

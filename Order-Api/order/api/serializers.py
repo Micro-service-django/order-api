@@ -5,11 +5,24 @@ from ..models import Order, Product
 class ProductSerializer(serializers.ModelSerializer):
   class Meta:
     model = Product
-    fields = '__all__'
+    fields = (
+      'id', 
+      'name', 
+      'weight', 
+      'price'
+    )
 
 class OrderSerializer(serializers.ModelSerializer):
-  product = ProductSerializer(read_only = True)
+  product = ProductSerializer(read_only=True)
   
   class Meta:
     model = Order
-    fields = ('id', 'value_order', 'product')
+    fields = (
+      'id', 
+      'value_order', 
+      'email', 
+      'name', 
+      'product', 
+      'created_at', 
+      'updated_at'
+    )
